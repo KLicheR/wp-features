@@ -1,11 +1,19 @@
 <?php
 class Features_options extends Features {
+	public $php_version;
+
 	private $options = array();
 
 	public function __construct() {
+		$this->set_php_version();
 		add_action('admin_menu', array($this, 'add_page'));
 		add_action('wp_ajax_features_revert_option', array($this, 'revert_option'));
 		$this->get_options_data();
+	}
+
+	private function set_php_version() {
+		$version = explode('.', PHP_VERSION);
+		$this->php_version = $version[0] * 10000 + $version[1] * 100 + $version[2];
 	}
 
 	public function get_options_data() {
@@ -174,10 +182,21 @@ class Features_options extends Features {
 				<span id="message-<?php echo $key; ?>" style="display:none;color:red;"></span>
 			</td>
 			<td>
-				<?php if (!$sync): ?>
+				<?php
+					if (!$sync):
+						// If PHP version in >= 5.4.0.
+						if ($this->php_version >= 50400) {
+							$db_raw_value_with_htmlentities = htmlentities($db_raw_value);
+						}
+						else {
+							$db_raw_value_with_htmlentities = htmlentities($db_raw_value, ENT_COMPAT, 'UTF-8');
+						}
+				?>
 					<label id="db-value-label-<?php echo $key; ?>" for="db-value-<?php echo $key; ?>">Raw value from DB, ready for the &quot;features_options_data.php&quot; file:</label>
-					<input type="text" id="db-value-<?php echo $key; ?>" value="<?php echo str_replace("'", "\'", htmlentities($db_raw_value, ENT_COMPAT | ENT_HTML401, 'UTF-8')); ?>" title="Raw value from DB, ready for the &quot;features_options_data.php&quot; file.">
-				<?php endif; ?>
+					<input type="text" id="db-value-<?php echo $key; ?>" value="<?php echo str_replace("'", "\'", $db_raw_value_with_htmlentities); ?>" title="Raw value from DB, ready for the &quot;features_options_data.php&quot; file.">
+				<?php
+					endif;
+				?>
 			</td>
 		</tr>
 <?php
