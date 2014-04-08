@@ -3,8 +3,8 @@ Contributors: KLicheR
 Donate link: 
 Tags: vcs,versioning,backup,database,migrate,environment,deployment,settings,options
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 0.0.1
+Tested up to: 3.8.2
+Stable tag: 0.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,8 +27,8 @@ In the admin, a new page called *Features* is accessible under the *Tools* menu.
 * If you want to **replace** what is in the **database** with the value from the file, click the *Revert* button.
 * If you want to **replace** what is in the **file** with the value from the database (for versioning), copy the content of the text field to the file.
 
-= Add a new option to the file =
-The *features_options_data.php* file contain a PHP array. To add a new option from the *wp_options* table, use the *option_name* column value as the *key* and the *option_value* column value as the *value*.
+= Add a new option to the filter =
+To add a new option from the *wp_options* table, use the *features_options* filter to alter the *options* array: column value as the *key* and the *option_value* column value as the *value*.
 
 = What's next? =
 This plugin is under development. If you know what your doing, you can use it and there will be an upgrade path, at least, a manuel one.

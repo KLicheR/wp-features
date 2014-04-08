@@ -17,10 +17,7 @@ class Features_options extends Features {
 	}
 
 	public function get_options_data() {
-		if (file_exists(dirname(__FILE__) . '/features_options_data.php')) {
-			include_once(dirname(__FILE__) . '/features_options_data.php');
-			$this->options = $options;
-		}
+		$this->options = apply_filters('features_options', array());
 	}
 
 	public function add_page() {

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Features
 Description: Help to migrate entries from "wp_options" table from multiple environments.
-Version: 0.0.1
+Version: 0.0.2
 Author: KLicheR
 Author URI: ---
 License: GPLv2 or later
